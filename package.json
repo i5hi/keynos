@@ -1,0 +1,21 @@
+{
+  "name": "keynos",
+  "version": "0.1.0",
+  "description": "keys used for social media protocols like nostr",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha keys.spec.js"
+  },
+  "keywords": [
+    "keys",
+    "nostr"
+  ],
+  "author": "ishi",
+  "license": "MIT",
+  "dependencies": {
+    "@noble/secp256k1": "^1.5.5",
+    "bip32": "^2.0.6",
+    "bip39": "^3.0.4",
+    "mocha": "^9.2.2"
+  }
+}
