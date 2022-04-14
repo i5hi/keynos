@@ -8,7 +8,7 @@ function generateAccessKey(init_entropy){
     init_entropy
   )
   .digest('hex');
-  return Buffer.from(full, 'hex').toString('hex').substring(0,32).toUpperCase();
+  return Buffer.from(full, 'hex').toString('hex').substring(0 ,32).toUpperCase();
 }
 function addPassphrase(key, passphrase){
     const passphrase_pad = `-${passphrase}`;
@@ -41,18 +41,18 @@ function deriveHardended3x(parent, derivation_scheme){
 
     derivation_scheme = derivation_scheme.replace("'",  "h").replace("'",  "h").replace("'",  "h");
     derivation_scheme = derivation_scheme.replace("m/",  "");
-    // (derivation_scheme);
-    const parent_key = bip32.fromBase58(parent);
     if ( derivation_scheme.split("h/").length < 3 ) return new Error({
       code: 400,
       message: "Derivation scheme must contain 3 sub paths."
     });
-    
-    // (derivation_scheme.split("h/"),derivation_scheme.split("h/").length);
     const use_case = parseInt(derivation_scheme.split("h/")[0]);
     const index = parseInt(derivation_scheme.split("h/")[1]);
     const revoke = parseInt(derivation_scheme.split("h/")[2]);
-    const child_key = parent_key.deriveHardened(use_case).deriveHardened(index).deriveHardened(revoke);
+    
+    const child_key = bip32.fromBase58(parent)
+      .deriveHardened(use_case)
+      .deriveHardened(index)
+      .deriveHardened(revoke);
     const extended_keys = {
       xpub: child_key.neutered().toBase58(),
       xprv: child_key.toBase58(),
@@ -77,6 +77,7 @@ function extractECDHKeys(extended_keys) {
   }
 }
 function computeSharedSecret(ecdh_keys) {
+  try{
   ecdh_keys.pubkey = (ecdh_keys.pubkey.length===64)
     ? "02" + ecdh_keys.pubkey
     : ecdh_keys.pubkey;
@@ -87,6 +88,10 @@ function computeSharedSecret(ecdh_keys) {
  
   const shared_secret = curve.computeSecret(ecdh_keys.pubkey, "hex");
   return shared_secret.toString("hex");
+  }
+  catch(e){
+    return new Error(e);
+  }
 }
 async function schnorrSign(message, privkey) {
   try {

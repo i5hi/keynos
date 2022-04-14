@@ -4,22 +4,22 @@ const crypto = require('crypto');
 
 describe('Key Derivation Flow', function () {
 
-    let key;
+    let access_key;
     const passphrase = "supersecretnonsauce";
     let root;
     let ecdh_keys;
     const message = "keynos might actually work." + `:${Date.now()}`;
   it('Generate a 16-byte base64 access key', function () {
-    key = keys.generateAccessKey(crypto.randomBytes(512));
-    assert(Buffer.byteLength(key, 'utf8')===32);
+    access_key = keys.generateAccessKey(crypto.randomBytes(512));
+    assert(Buffer.byteLength(access_key, 'utf8')===32);
   });
 
   it("Displays the access key for readability",function(){
-    console.log(keys.addSpaces(key));
-    console.log(keys.formatKeyAndPassphrase(key, passphrase));
+    console.log(keys.addSpaces(access_key));
+    console.log(keys.formatKeyAndPassphrase(access_key, passphrase));
   })
   it('Generate root Xprv from from access key.', async function () {
-    const seed = await keys.generateSeed(keys.addPassphrase(key,passphrase));
+    const seed = await keys.generateSeed(keys.addPassphrase(access_key,passphrase));
     root = await keys.generateRootXPrv(seed);
     assert(root.startsWith('xprv'));
   });
