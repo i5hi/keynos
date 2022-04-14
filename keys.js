@@ -15,10 +15,10 @@ function addPassphrase(key, passphrase){
     return key+passphrase_pad;
 }
 function addSpaces(key){
-  return key.replace(/(.{4})/g, '$1 ').trim(); 
+  return key.replaceAll(/(.{4})/g, '$1 ').trim(); 
 }
 function removeSpaces(key){
-  return key.replace(" ", "");
+  return key.replaceAll(" ", "");
 }
 function formatKeyAndPassphrase(key, passphrase){
     return addSpaces(key)+`-${passphrase}`;
