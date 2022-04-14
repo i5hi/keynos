@@ -11,8 +11,8 @@ function generateAccessKey(init_entropy){
   return Buffer.from(full, 'hex').toString('hex').substring(0 ,32);
 }
 
-function addSpaces(key, split=4){
-  return key.replaceAll(/(.{`${split}`})/g, '$1 ').trim(); 
+function addSpaces(key){
+  return key.replaceAll(/(.{4})/g, '$1 ').trim(); 
 }
 
 function removeSpaces(key){
@@ -20,13 +20,14 @@ function removeSpaces(key){
 }
 
 function formatKeyAndPassphrase(key, passphrase){
-    const sauce = passphrase?``:`-${passphrase}`;
+    const sauce = passphrase?`-${passphrase}`:``;
     return addSpaces(key)+sauce;
 }
-// Entropy is the result of EITHER generateAccessKey or addPassphrase.
+
 async function generateSeed(key, passphrase){
-  const sauce = passphrase?``:`-${passphrase}`;
+  const sauce = (passphrase)?`-${passphrase}`:``;
   const final_entropy_in = removeSpaces(key)+sauce;
+  console.log({final_entropy_in})
   
   const mnemonic = await bip39.entropyToMnemonic(
     crypto.createHash('sha256').update(final_entropy_in).digest('hex')
