@@ -9,9 +9,9 @@ describe('Key Derivation Flow', function () {
     let root;
     let ecdh_keys;
     const message = "keynos might actually work." + `:${Date.now()}`;
-  it('Generate a 16-byte base64 access key', function () {
+  it('Generate a 16-byte hex access key', function () {
     access_key = keys.generateAccessKey(crypto.randomBytes(512));
-    assert(Buffer.byteLength(access_key, 'utf8')===32);
+    assert(Buffer.byteLength(access_key, 'hex')===16);
   });
 
   it("Displays the access key for readability",function(){
