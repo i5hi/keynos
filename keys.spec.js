@@ -1,5 +1,6 @@
 const keys = require('./keys.js');
 const assert = require('assert');
+const crypto = require('crypto');
 
 describe('Key Derivation Flow', function () {
 
@@ -9,7 +10,7 @@ describe('Key Derivation Flow', function () {
     let ecdh_keys;
     const message = "keynos might actually work." + `:${Date.now()}`;
   it('Generate a 16-byte base64 access key', function () {
-    key = keys.generateAccessKey();
+    key = keys.generateAccessKey(crypto.randomBytes(512));
     assert(Buffer.byteLength(key, 'utf8')===32);
   });
 

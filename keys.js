@@ -3,9 +3,9 @@ const bip32 = require("bip32");
 const bip39 = require("bip39");
 const crypto = require("crypto");
 
-function generateAccessKey(){
+function generateAccessKey(init_entropy){
   const full =  crypto.createHash('sha256').update(
-    crypto.randomBytes(512)
+    init_entropy
   )
   .digest('hex');
   return Buffer.from(full, 'hex').toString('hex').substring(0,32).toUpperCase();
