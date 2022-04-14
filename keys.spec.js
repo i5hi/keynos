@@ -10,7 +10,7 @@ describe('Key Derivation Flow', function () {
     const message = "keynos might actually work." + `:${Date.now()}`;
   it('Generate a 16-byte base64 access key', function () {
     key = keys.generateAccessKey();
-    assert(key.length===32);
+    assert(Buffer.byteLength(key, 'utf8')===32);
   });
 
   it("Displays the access key for readability",function(){

@@ -8,7 +8,7 @@ function generateAccessKey(){
     crypto.randomBytes(512)
   )
   .digest('hex');
-  return Buffer.from(full, 'hex').toString('base64').substring(0,32).toUpperCase();
+  return Buffer.from(full, 'hex').toString('hex').substring(0,32).toUpperCase();
 }
 function addPassphrase(key, passphrase){
     const passphrase_pad = `-${passphrase}`;
