@@ -19,7 +19,7 @@ describe('Key Derivation Flow', function () {
     console.log(keys.formatKeyAndPassphrase(access_key, passphrase));
   })
   it('Generate root Xprv from from access key.', async function () {
-    const seed = await keys.generateSeed(keys.addPassphrase(access_key,passphrase));
+    const seed = await keys.generateSeed(access_key,passphrase);
     root = await keys.generateRootXPrv(seed);
     assert(root.startsWith('xprv'));
   });
