@@ -6,6 +6,7 @@ key standard for nostr and other social media protocols.
 
 ```
 git clone https://github.com/i5hi/keynos.git
+cd keynos
 npm i
 npm test
 ```
