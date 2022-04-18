@@ -1,6 +1,6 @@
 # keynos
 
-key standard for nostr and other social media protocols.
+Key standard for nostr and other social media protocols.
 
 ## test
 

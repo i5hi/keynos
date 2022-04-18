@@ -21,12 +21,12 @@ function removeSpaces(key){
 
 function formatKeyAndPassphrase(key, passphrase){
     const sauce = passphrase?`-${passphrase}`:``;
-    return addSpaces(key)+sauce;
+    return addSpaces(key).toUpperCase()+sauce;
 }
 
 async function generateSeed(key, passphrase){
   const sauce = (passphrase)?`-${passphrase}`:``;
-  const final_entropy_in = removeSpaces(key)+sauce;
+  const final_entropy_in = removeSpaces(key).toLowerCase()+sauce;
   console.log({final_entropy_in})
   
   const mnemonic = await bip39.entropyToMnemonic(
